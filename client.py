@@ -1,16 +1,23 @@
 import socket
 import threading
 
-PORT = 5050
 HEADER = 64
 FORMAT = 'utf-8'
+DISCONNECT_MESSAGE = '!DISCONNECT'
+PORT = 7070
+SERVER_IP = "172.19.14.170"
+ADDR = (SERVER_IP, PORT)
 
-ADDR = ("172.19.14.105", PORT)
+def send(msg):
+    message = msg.encode(FORMAT)
+    len_msg = str(len(message))
+    len_msg_enc = len_msg.encode(FORMAT)
+    len_msg_enc += b' ' * (HEADER - len(len_msg_enc))
+    c.send(len_msg_enc)
+    c.send(message)
 
-c = socket.socket();
+c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 c.connect(ADDR)
+send("Hello server")
 
-msg = "Hello, I am Arjun"
-enc_msg_length = len(msg).encode(FORMAT)
-enc_msg_lengthkalength = len(enc_msg_length)
-c.send(b' ' * (HEADER - enc_msg_lengthkalength) + enc_msg_length)
+send(DISCONNECT_MESSAGE)
