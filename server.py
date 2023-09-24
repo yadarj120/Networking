@@ -9,7 +9,7 @@ server_addr = socket.gethostbyname(socket.gethostname())
 
 ADDR = (server_addr, PORT)
 
-server_sock = socket.socket(socket.AF_INET, socket.SOCKET_STREAM);
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 server_sock.bind(ADDR);
 
 def handle_client(client_sock, client_addr):
